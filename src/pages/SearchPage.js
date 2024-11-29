@@ -1,4 +1,4 @@
-import Searchbar from '../components/search/SearchBar';
+import SearchBar from '../components/search/SearchBar';
 import SearchResults from '../components/search/SearchResults.js';
 import SearchFilters from '../components/search/SearchFilters.js';
 
@@ -10,8 +10,8 @@ function SearchPage() {
                 {/* 검색 체크박스 - 학년&학기, 강의명, 교수명 */}
                 {/* 입력 가능 + 체크박스 가능 */}
                 <SearchBar />
-                <SearchFilters />
-                <SearchResults />
+                {/* <SearchFilters />
+                <SearchResults /> */}
             </div>
         </div>
     );
