@@ -1,0 +1,19 @@
+.mypageprofile{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    padding: 5%;
+    margin: 3%;
+}
+
+.mypageprofile-container{
+    font: 1.3rem bold;
+}
+
+.mypageprofile-box{
+    background-color: #fff;
+    height: 4rem;
+    border-radius: 1rem;
+    margin: 3%;
+    padding: 3%;
+}
