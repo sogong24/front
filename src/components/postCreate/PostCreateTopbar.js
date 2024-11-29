@@ -1,13 +1,19 @@
 import { IoIosClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-function PostCreateTopbar() {
+function PostCreateTopbar({ courseInfo }) {
   const navigate = useNavigate();
 
-  const clickComplete = () => {};
+  const clickComplete = () => {
+    //navigate("");
+  };
+  // 완료 버튼을 눌렀을 때
+  // pdf 파일과 정보(학기, 교수명, 강의명)를 데이터베이스에 저장 후 다운로드 창으로 이동.
+
   const clickClose = () => {
     navigate("/");
   };
+  // X 버튼을 눌렀을 때
 
   return (
     <div className="flex flex-col">
