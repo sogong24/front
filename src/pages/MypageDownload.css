@@ -1,0 +1,7 @@
+.mypageDownload{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    padding: 5%;
+    margin: 3%;
+}
