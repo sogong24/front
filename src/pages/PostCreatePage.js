@@ -1,9 +1,10 @@
+import PostCreateTopbar from "../components/postCreate/PostCreateTopbar";
 function PostCreatePage() {
-    return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold">게시글 작성</h1>
-        </div>
-    );
+  return (
+    <div className="p-3">
+      <PostCreateTopbar />
+    </div>
+  );
 }
 
 export default PostCreatePage;
