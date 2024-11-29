@@ -8,14 +8,21 @@ function Layout({ children }) {
     const showSearchFrame = ['/', '/search'].includes(location.pathname);
 
     return (
-        <div className='w-[700px] min-h-screen mx-auto relative pb-16 bg-[#f5f5f5]'>
-            <div className='sticky top-0 bg-white z-10'>
-                <SettingBar/>
+        <div className='bg-white min-h-screen'>
+            <div className='w-[700px] min-h-screen mx-auto relative pb-16 bg-gray-50'>
+                <div className='sticky top-0 bg-white z-10'>
+                    <SettingBar/>
+                </div>
+                <div className='min-h-screen'>
+                    {children}
+                    {showSearchFrame && (
+                        <div className='bg-white'>
+                            <SearchFrame />
+                        </div>
+                    )}
+                </div>
+                <Menubar />
             </div>
-            {children}
-            {showSearchFrame && <SearchFrame />} 
-            {/* serachbar를 위한 frame, tempframe는 임시로 만든 프레임 */}
-            <Menubar />
         </div>
     );
 }

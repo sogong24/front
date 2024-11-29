@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBar from '../search/SearchBar';
 
-function TempFrame() {
+function SearchFrame() {
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-gray-100 bg-poacity-75 flex justify-center items-center'>
             <div className='bg-white p-4 rounded shadow-lg w-[600px]'>
@@ -16,4 +16,4 @@ function TempFrame() {
     );
 }
 
-export default TempFrame;
+export default SearchFrame;
