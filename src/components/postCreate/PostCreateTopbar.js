@@ -1,7 +1,7 @@
 import { IoIosClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-function PostCreateTopbar({ courseInfo }) {
+function PostCreateTopbar({ courseInfo, fileInfo }) {
   const navigate = useNavigate();
 
   const clickComplete = () => {

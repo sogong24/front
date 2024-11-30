@@ -1,7 +1,7 @@
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-function FilterInputGroup({ sendData }) {
+function FilterInputGroup({ sendFilterData }) {
   const [filters, setFilters] = useState({
     grade: "",
     semester: "",
@@ -14,8 +14,8 @@ function FilterInputGroup({ sendData }) {
   };
 
   useEffect(() => {
-    sendData(filters);
-  }, [filters, sendData]);
+    sendFilterData(filters);
+  }, [filters, sendFilterData]);
 
   return (
     <div className="flex my-20 bg-transparent justify-center items-center">
