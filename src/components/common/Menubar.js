@@ -29,18 +29,7 @@ function Menubar() {
           <div className="w-6 h-6 mb-1">
             <div className="w-full h-full border-2 border-current" />
           </div>
-          <span className="text-us">홈</span>
-        </Link>
-
-        {/* 검색 메뉴 */}
-        <Link
-          to="/search"
-          className={`flex flex-col items center ${isActive("/search")}`}
-        >
-          <div classname="w-6 h-6 mb-1">
-            <div className="w-full h-full rounded-full border-2 border-current" />
-          </div>
-          <span className="text-xs">검색</span>
+          <span className="text-xs">홈</span>
         </Link>
 
         {/* 마이페이지 */}
