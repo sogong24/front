@@ -31,7 +31,7 @@ function Menubar() {
                 </Link>
 
                 {/* 마이페이지 */}
-                <Link to="/mypage" className={`flex flex-col items-center ${isActive('/mypage')}`}>
+                <Link to="/Mypage" className={`flex flex-col items-center ${isActive('/Mypage')}`}>
                     <div className="w-6 h-6 mb-1">
                         <div className="w-full h-full rounded-full border-2 border-current "/>
                     </div>

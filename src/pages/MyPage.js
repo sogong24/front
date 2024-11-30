@@ -23,7 +23,7 @@ function Mypage() {
         }
     };
     return (
-        <div className="mypage">
+        <div className="Mypage">
             <div className="profile"><img/></div>
             <div className="menu">
                 <div className="menu-button" onClick={() => setCurrentComponent('profile')}>프로필</div>

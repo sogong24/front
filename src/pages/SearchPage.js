@@ -1,6 +1,6 @@
 import SearchFrame from "../components/common/SearchFrame";
 
-function Homepage() {
+function SearchPage() {
     return (
         <div className="min-h-screen">
             <SearchFrame />
@@ -8,4 +8,4 @@ function Homepage() {
     );
 }
 
-export default Homepage;
+export default SearchPage;

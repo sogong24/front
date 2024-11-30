@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import Menubar from './Menubar';
 import SettingBar from './SettingBar';
-import HomePage from '../../pages/HomePage';
+import SearchPage from '../../pages/SearchPage';
 
 function Layout() {
 
@@ -11,7 +11,7 @@ function Layout() {
                 <div className='sticky top-0 bg-white z-10'>
                     <SettingBar/>
                 </div>
-                <HomePage />
+                <SearchPage />
                 <Menubar />
             </div>
         </div>
