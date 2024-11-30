@@ -1,5 +1,5 @@
 import React from "react";
-import Reactrouter from "react-router-dom";
+// import Reactrouter from "react-router-dom";
 import "./Mypage.css";
 import { useState } from "react";
 import MypageDownload from './MypageDownload';
@@ -24,7 +24,7 @@ function Mypage() {
     };
     return (
         <div className="Mypage">
-            <div className="profile"><img/></div>
+            <div className="profile"><img alt="profile"/></div>
             <div className="menu">
                 <div className="menu-button" onClick={() => setCurrentComponent('profile')}>프로필</div>
                 <div className="menu-button" onClick={() => setCurrentComponent('download')}>다운받은목록</div>

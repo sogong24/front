@@ -22,9 +22,9 @@ function Layout() {
   };
 
     return (
-        <div className='bg-white min-h-screen'>
-            <div className='w-[700px] min-h-screen mx-auto relative pb-16 bg-gray-50'>
-                <div className='sticky top-0 bg-white z-10'>
+        <div className='bg-gray-50 min-h-screen'>
+            <div className='w-[700px] min-h-screen mx-auto relative pb-16 bg-white flex flex-col'>
+                <div className='sticky top-0 bg-white z-10 border-b'>
                     <SettingBar/>
                 </div>
                 {renderPage()}
