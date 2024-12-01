@@ -7,7 +7,7 @@
 }
 
 .mypageprofile-container{
-    font: 1.3rem bold;
+    font: 1.3rem bolder;
 }
 
 .mypageprofile-box{
@@ -16,4 +16,26 @@
     border-radius: 1rem;
     margin: 3%;
     padding: 3%;
+}
+
+.mypageprofile-box-reputation{
+    border-radius: 1rem;
+    margin: 3%;
+    padding: 3%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reputation{
+    border-radius: 10px;
+    font: 1rem bold;
+    background-color: #fff;
+    width: 40%;
+    padding: 3%;
+}
+.mypageprofile-box input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font: 1.3rem bold;
 }

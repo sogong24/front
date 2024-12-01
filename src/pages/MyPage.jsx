@@ -22,8 +22,8 @@ function Mypage() {
         }
     };
     return (
-        <div className="Mypage">
-            <div className="profile"><img alt="profile"/></div>
+        <div className="mypage-css">
+            <div className="profile"></div>
             <div className="menu">
                 <div className="menu-button" onClick={() => setCurrentComponent('profile')}>프로필</div>
                 <div className="menu-button" onClick={() => setCurrentComponent('download')}>다운받은목록</div>

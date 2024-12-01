@@ -4,7 +4,6 @@ import Layout from "./components/common/Layout";
 import HomePage from "./pages/HomePage";
 import MyPage from "./pages/MyPage";
 import PostCreatePage from "./pages/PostCreatePage";
-
 import "./index.css";
 import "./App.css";
 

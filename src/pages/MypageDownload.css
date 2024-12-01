@@ -5,3 +5,19 @@
     padding: 5%;
     margin: 3%;
 }
+
+.mypageDownload-container{
+    display: flex;
+    flex-direction: row;
+    font: 1.3rem bolder;
+    aspect-ratio: 3/1;
+    background-color: #fff;
+    border-radius: 2rem;
+    padding: 3%;
+    margin: 4%;
+}
+
+.mypageDownload-container-inf{
+    display: flex;
+    flex-direction: column;
+}
