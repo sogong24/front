@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/common/Layout";
 import HomePage from "./pages/HomePage";
+import SearchResultPage from "./pages/SearchResultPage";
 import MyPage from "./pages/MyPage";
 import PostCreatePage from "./pages/PostCreatePage";
 
@@ -14,6 +15,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchResultPage />} />
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/post/create" element={<PostCreatePage />} />
 
