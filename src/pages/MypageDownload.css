@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: row;
     font: 1.3rem bolder;
-    aspect-ratio: 3/1;
+    aspect-ratio: 3.3/1;
     background-color: #fff;
     border-radius: 2rem;
     padding: 3%;
@@ -20,4 +20,12 @@
 .mypageDownload-container-inf{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    width: 30%;
+}
+
+.download-icons{
+    aspect-ratio: 1/1;
+    width: 20%;
+    margin: 1%;
 }
