@@ -1,25 +1,10 @@
-import { useLocation } from 'react-router-dom';
+import React from 'react';
 import Menubar from './Menubar';
 import SettingBar from './SettingBar';
-import HomePage from '../../pages/HomePage';
-import Mypage from '../../pages/MyPage';
-import PostCreatePage from '../../pages/PostCreatePage';
+import usePageRender from '../../hooks/usePageRender';
 
 function Layout() {
-  const location = useLocation();
-
-  const renderPage = () => {
-    switch (location.pathname) {
-      case "/":
-        return <HomePage />;
-      case "/mypage":
-        return <Mypage />;
-      case "/post/create":
-        return <PostCreatePage />;
-      default:
-        return <HomePage />;
-    }
-  };
+  const renderPage = usePageRender();
 
     return (
         <div className='bg-gray-50 min-h-screen'>
