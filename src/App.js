@@ -16,11 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchResultPage />} />
-          <Route path="/MyPage" element={<MyPage />} />
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="/post/create" element={<PostCreatePage />} />
-
-          {/* <Route path="/Signup" element={<Signup />} /> */}
-          {/* <Route path="*" element={<Error />} /> */}
         </Routes>
       </Layout>
     </Router>

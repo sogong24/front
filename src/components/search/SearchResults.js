@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../api/axios';
+// components/search/SearchResults.js - Only UI Rendering
+
+import React from 'react';
 
 function SearchResults({ results, error }) {
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        if (results || error) {
-            setLoading(false);
-        }
-    }, [results, error]);
-
-    if (loading) {
-        return <div>검색 중...</div>;
-    }
-
     if (error) {
         return <div className="text-red-500">{error}</div>;
     }
-
+    // 구체화 필요
     if (!results || results.length === 0) {
         return <div>검색 결과가 없습니다. 다른 검색어로 시도해보세요.</div>;
     }
-
+    // lecture - courses .. ? 
     return (
         <div className="space-y-4">
             {results.map((lecture) => (
