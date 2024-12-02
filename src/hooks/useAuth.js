@@ -18,8 +18,7 @@ function useAuth() {
         setIsLoggedIn(true);
         // DB 연동 전 로그인 체크---------------------------------
         localStorage.setItem('isLoggedIn', 'true');
-        //--------------------------------------------------------
-        navigate('/');
+        navigate('/home');
     };
 
     const logout = () => {
@@ -31,10 +30,11 @@ function useAuth() {
 
     // DB 연동 전 로그인 체크
     const checkAuth = () => {
-        if (noBarPaths.includes(location.pathname)) {
-            return true;
+        const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
+        if (!isAuthenticated && location.pathname !== '/login') {
+            return false;
         }
-        return isLoggedIn || localStorage.getItem('isLoggedIn') === 'true';
+        return true;
     };
 
     // DB 연동 후 사용할 로직

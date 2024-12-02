@@ -8,8 +8,7 @@ function Layout({children}) {
     const location = useLocation();
     const { checkAuth, noBarPaths } = useAuth();  // isLoggedIn 제거
     
-    // 로그인 상태 체크
-    if (!checkAuth()) {
+    if (!checkAuth() && location.pathname !== '/login') {
         return <Navigate to="/login" replace />;
     }
 

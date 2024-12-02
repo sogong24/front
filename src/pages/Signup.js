@@ -1,18 +1,18 @@
+import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
-import useAuth from '../hooks/useAuth';
 
-function Login() {
+function Signup() {
   const navigate = useNavigate();
-  const { login } = useAuth();
-
-  const loginClick = () => {
-    login();
-  };
 
   const signupClick = () => {
-    navigate("/signup");
+    // 회원가입 로직 구현
+    navigate('/login');
+  };
+
+  const loginClick = () => {
+    navigate('/login');
   };
 
   return (
@@ -21,7 +21,7 @@ function Login() {
         <div className="px-16 relative top-[120px]">
           <div className="flex flex-col items-center">
             <h1 className="font-size-xl font-medium text-4xl font-serif text-center">
-              Login
+              회원가입
             </h1>
 
             <div className="flex mt-24 bg-login-input-color w-4/5 rounded px-2 h-10 items-center">
@@ -41,18 +41,27 @@ function Login() {
               ></input>
             </div>
 
+            <div className="flex mt-8 bg-login-input-color w-4/5 rounded px-2 h-10 items-center">
+              <RiLockPasswordLine size={25} />
+              <input
+                className="mx-3 flex-grow bg-login-input-color"
+                placeholder="confirm password"
+                type="password"
+              ></input>
+            </div>
+
             <div className="flex justify-end w-4/5 mt-2">
-              <button className="underline" onClick={signupClick}>
-                회원가입하기
+              <button className="underline" onClick={loginClick}>
+                로그인하기
               </button>
             </div>
 
             <div className="w-4/5 mt-14 flex justify-center">
               <button
-                onClick={loginClick}
+                onClick={signupClick}
                 className="w-full rounded-2xl bg-button-red h-10 text-white font-semibold"
               >
-                로그인
+                회원가입
               </button>
             </div>
           </div>
@@ -62,4 +71,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup; 
