@@ -1,16 +1,26 @@
 import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 import Menubar from './Menubar';
 import SettingBar from './SettingBar';
+import useAuth from '../../hooks/useAuth';
 
-function Layout({ children }) {
+function Layout({children}) {
+    const location = useLocation();
+    const { checkAuth, noBarPaths } = useAuth();  // isLoggedIn 제거
+    
+    // 로그인 상태 체크
+    if (!checkAuth()) {
+        return <Navigate to="/login" replace />;
+    }
+
     return (
-        <div className='bg-gray-50 min-h-screen'>
-            <div className='w-[700px] min-h-screen mx-auto relative pb-16 bg-white flex flex-col'>
-                <div className='sticky top-0 bg-white z-10 border-b'>
-                    <SettingBar/>
+        <div className="bg-white min-h-screen">
+            <div className="w-[700px] min-h-screen mx-auto relative pb-16 bg-gray-50">
+                <div className="sticky top-0 bg-white z-10">
+                    {!noBarPaths.includes(location.pathname) && <SettingBar />}
                 </div>
                 {children}
-                <Menubar />
+                {!noBarPaths.includes(location.pathname) && <Menubar />}
             </div>
         </div>
     );
