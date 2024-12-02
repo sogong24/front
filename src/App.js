@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import MyPage from "./pages/MyPage";
 import PostCreatePage from "./pages/PostCreatePage";
 import Login from "./pages/Login";
+import Signup from "./pages/signup";
 
 import "./index.css";
 import "./App.css";
@@ -19,7 +20,7 @@ function App() {
           <Route path="/post/create" element={<PostCreatePage />} />
           <Route path="/Login" element={<Login />} />
 
-          {/* <Route path="/Signup" element={<Signup />} />
+          <Route path="/Signup" element={<Signup />} />
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>
       </Layout>

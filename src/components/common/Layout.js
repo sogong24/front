@@ -5,9 +5,9 @@ import HomePage from "../../pages/HomePage";
 import Mypage from "../../pages/MyPage";
 import PostCreatePage from "../../pages/PostCreatePage";
 import Login from "../../pages/Login";
+import Signup from "../../pages/signup";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-
 
 function Layout() {
   const location = useLocation();
@@ -30,6 +30,8 @@ function Layout() {
         return <PostCreatePage />;
       case "/login":
         return <Login setIsLoggedIn={setIsLoggedIn} />;
+      case "/signup":
+        return <Signup />;
       default:
         return <Navigate to="/" replace />;
     }
