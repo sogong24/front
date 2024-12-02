@@ -1,19 +1,36 @@
-import React from "react";
-import SearchBar from "../search/SearchBar";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import SearchFilters from '../search/SearchFilters';
+import useSearch from '../../hooks/useSearch';
 
-function SearchFrame() {
-  return (
-    <div className="flex-1 bg-white p-4">
-      <div className="w-full h-full">
-        <h2 className="text-lg font-bold mb-6">검색</h2>
-        <div className="space-y-4">
-          <SearchBar searchType="semester" label="학년&학기" />
-          <SearchBar searchType="course" label="강의명" />
-          <SearchBar searchType="professor" label="교수명" />
+function SearchFrame({ initialSearchParams = null }) {
+
+    const navigate = useNavigate();
+    const { searchParams, handleSearchUpdate, handleSearch } = useSearch(initialSearchParams);
+
+    const handleSearchSubmit = () => {
+        const params = handleSearch();
+        if (params) {
+            const queryString = new URLSearchParams(params).toString();
+            navigate(`/search?${queryString}`, { replace: true });
+        }
+    };
+
+    return (
+        <div className="container mx-auto p-4">
+            <SearchFilters 
+                searchParams={searchParams}
+                // onChange event → onSearch
+                onSearch={handleSearchUpdate} 
+            />
+            <button 
+                className="w-full mt-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+                onClick={handleSearchSubmit}
+            >
+                검색
+            </button>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default SearchFrame;
