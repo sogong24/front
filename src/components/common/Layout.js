@@ -1,7 +1,6 @@
 import React from 'react';
 import Menubar from './Menubar';
 import SettingBar from './SettingBar';
-// import usePageRender from '../../hooks/usePageRender';
 
 function Layout({ children }) {
     return (
