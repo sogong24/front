@@ -22,7 +22,7 @@ function Layout({children}) {
                 {!noBarPaths.includes(location.pathname) && <Menubar />}
             </div>
         </div>
-    );
+  );
 }
 
 export default Layout;
