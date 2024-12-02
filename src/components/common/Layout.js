@@ -8,6 +8,7 @@ import Login from "../../pages/Login";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
+
 function Layout() {
   const location = useLocation();
   const noBarPaths = ["/login", "/signup"];
