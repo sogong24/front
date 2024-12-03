@@ -10,7 +10,7 @@ function SearchResults({ results, error }) {
     if (!results || results.length === 0) {
         return <div>검색 결과가 없습니다. 다른 검색어로 시도해보세요.</div>;
     }
-    // lecture - courses .. ? 
+    
     return (
         <div className="space-y-4">
             {results.map((courses) => (
