@@ -8,7 +8,6 @@ import PostCreatePage from "./pages/PostCreatePage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
-
 import "./index.css";
 import "./App.css";
 
