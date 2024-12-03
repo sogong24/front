@@ -25,7 +25,7 @@ function Menubar() {
         </Link>
 
         {/* 홈 메뉴 */}
-        <Link to="/" className={`flex flex-col items-center ${isActive("/")}`}>
+        <Link to="/home" className={`flex flex-col items-center ${isActive("/")}`}>
           <div className="w-6 h-6 mb-1">
             <div className="w-full h-full border-2 border-current" />
           </div>
