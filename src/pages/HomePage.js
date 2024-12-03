@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import SearchFrame from "../components/common/SearchFrame";
-import api from '../api/axios';
+import React from 'react';
+import SearchFrame from '../components/common/SearchFrame';
 
 function HomePage() {
-    const [testMessage, setTestMessage] = useState('');
-
-    useEffect(() => {
-        // backend test
-        const testConnection = async () => {
-            try {
-                const response = await api.get('/');
-                setTestMessage(response.data);
-                console.log('backend test success', response.data);
-            } catch (error) {
-                console.error('backend test fail', error);
-                setTestMessage('backend test fail');
-            }
-        }
-
-        testConnection();
-    }, []);
-
     return (
-        <div className="min-h-screen">
-            <div className="p-4">
-                <p>backend connection state: {testMessage}</p>
+        <div className="min-h-screen bg-gray-50">
+            <div className="container mx-auto px-4 py-8">
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl font bold text-gray-800-mb-4">
+                        강의 검색
+                    </h1>
+                </div>
             </div>
             <SearchFrame />
         </div>
