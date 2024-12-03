@@ -1,4 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
+import { FaHome } from 'react-icons/fa';
+import { CgAttachment } from 'react-icons/cg';
+import { CgUser } from 'react-icons/cg';
+
 
 function Menubar() {
   const location = useLocation();
@@ -9,38 +13,26 @@ function Menubar() {
 
   return (
     <div className="fixed bottom-0 w-[700px] h-16 bg-white border-t border-gray-200">
-      <div className="flex justify-around items-center">
+      <div className="flex justify-around align-items-center h-full">
         {/* 게시글 작성 메뉴 */}
         <Link
           to="/post/create"
-          className={`flex flex-col items-center ${isActive("/post/create")}`}
+          className={`flex flex-col justify-center items-center ${isActive("/post/create")}`}
         >
-          <div className="w-6 h-6 mb-1">
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="w-4 h-0.5 bg-current absolute" />
-              <div className="w-0.5 h-4 bg-current absolute" />
-            </div>
-          </div>
-          <span className="text-xs">게시글 작성</span>
+         <CgAttachment className="text-gray-700" size={25} />
         </Link>
 
         {/* 홈 메뉴 */}
-        <Link to="/home" className={`flex flex-col items-center ${isActive("/")}`}>
-          <div className="w-6 h-6 mb-1">
-            <div className="w-full h-full border-2 border-current" />
-          </div>
-          <span className="text-xs">홈</span>
+        <Link to="/home" className={`flex flex-col justify-center items-center ${isActive("/")}`}>
+          <FaHome className="text-gray-700" size={30} />
         </Link>
 
         {/* 마이페이지 */}
         <Link
           to="/mypage"
-          className={`flex flex-col items-center ${isActive("/mypage")}`}
+          className={`flex flex-col justify-center items-center ${isActive("/mypage")}`}
         >
-          <div className="w-6 h-6 mb-1">
-            <div className="w-full h-full rounded-full border-2 border-current " />
-          </div>
-          <span className="text-xs">마이페이지</span>
+          <CgUser className="text-gray-700" size={30} />
         </Link>
       </div>
     </div>
