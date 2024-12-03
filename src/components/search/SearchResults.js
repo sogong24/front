@@ -13,14 +13,14 @@ function SearchResults({ results, error }) {
     // lecture - courses .. ? 
     return (
         <div className="space-y-4">
-            {results.map((lecture) => (
+            {results.map((courses) => (
                 <div 
-                    key={lecture.id} 
+                    key={courses.id} 
                     className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 >
-                    <h3 className="text-lg font-semibold">{lecture.title}</h3>
+                    <h3 className="text-lg font-semibold">{courses.title}</h3>
                     <p className="text-gray-600">
-                        {lecture.gradeAndSemester} | {lecture.professorName}
+                        {courses.gradeAndSemester} | {courses.professorName}
                     </p>
                 </div>
             ))}

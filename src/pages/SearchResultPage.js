@@ -35,7 +35,7 @@ function SearchResultPage() {
                         </h2>
                         {searchParams.title && (
                             <p className="text-gray-600 mt-2">
-                                "{searchParams.title}" 검색 결과입니다
+                                "{searchParams.gradeAndSemester}-{searchParams.title}-{searchParams.professorName}" 검색 결과입니다
                             </p>
                         )}
                     </div>
