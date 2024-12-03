@@ -1,8 +1,12 @@
 // components/search/SearchResults.js - Only UI Rendering
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SearchResults({ results, error }) {
+
+    const navigate = useNavigate();
+
     if (error) {
         return <div className="text-red-500">{error}</div>;
     }
@@ -17,10 +21,11 @@ function SearchResults({ results, error }) {
                 <div 
                     key={courses.id} 
                     className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    onClick={() => navigate('/home')}
                 >
                     <h3 className="text-lg font-semibold">{courses.title}</h3>
                     <p className="text-gray-600">
-                        {courses.gradeAndSemester} | {courses.professorName}
+                    | {courses.professorName} 
                     </p>
                 </div>
             ))}
