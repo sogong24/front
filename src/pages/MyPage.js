@@ -25,9 +25,9 @@ function Mypage() {
         <div className="Mypage">
             <div className="profile"><img alt="profile"/></div>
             <div className="menu">
-                <div className="menu-button" onClick={() => setCurrentComponent('profile')}>프로필</div>
-                <div className="menu-button" onClick={() => setCurrentComponent('download')}>다운받은목록</div>
-                <div className="menu-button" onClick={() => setCurrentComponent('write')}>작성한목록</div>
+                <div className="menu-button btn-16" onClick={() => setCurrentComponent('profile')}>프로필</div>
+                <div className="menu-button btn-16" onClick={() => setCurrentComponent('download')}>다운받은목록</div>
+                <div className="menu-button btn-16" onClick={() => setCurrentComponent('write')}>작성한목록</div>
             </div>
             <div className="content">
                 {renderComponent()}
