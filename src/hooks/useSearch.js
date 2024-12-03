@@ -75,7 +75,7 @@ function useSearch(initialSearchParams = null) {
         if(initialSearchParams) {
             fetchResults();
         }
-    }, []); // 의존성 배열을 비워서 최초 마운트 시에만 실행
+    }, [initialSearchParams]);
 
     return {
         searchParams, 
