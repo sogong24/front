@@ -57,7 +57,6 @@ function useSearch(initialSearchParams = null) {
                 console.log('API 응답 결과: ', response.data);
                 
                 if(response.data && response.data.length > 0) {
-                    console.log(`${response.data.length}개의 검색 결과 존재`);
                     setSearchResults(response.data);
                 } else {
                     console.log('검색 결과 없음');
@@ -65,7 +64,6 @@ function useSearch(initialSearchParams = null) {
                 }
                 setError(null);
                 } catch(error) {
-                    console.error('API 오류: ', error);
                     setError('검색 중 오류 발생');
                     setSearchResults([]);
                 }
@@ -87,3 +85,5 @@ function useSearch(initialSearchParams = null) {
 }
 
 export default useSearch;
+
+// api 요청이 지속적으로 발생하는 문제.
