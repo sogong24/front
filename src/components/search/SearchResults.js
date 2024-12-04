@@ -21,7 +21,7 @@ function SearchResults({ results, error }) {
                 <div 
                     key={courses.id} 
                     className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
-                    onClick={() => navigate('/home')}
+                    onClick={() => navigate(`/courseboard/${courses.id}`)}
                 >
                     <h3 className="text-lg font-semibold">{courses.title}</h3>
                     <p className="text-gray-600">
