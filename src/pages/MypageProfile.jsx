@@ -7,7 +7,7 @@ import { BiDislike } from "react-icons/bi";
 export default function mypageprofile() {
     return (
         <div className="mypageprofile">
-            <div className="mypageprofile-container">닉네임
+            <div className="mypageprofile-container">{}
                 <div className="mypageprofile-box">홍길동</div>
             </div>
             <div className="mypageprofile-container">ID (이메일)

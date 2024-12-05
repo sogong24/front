@@ -5,7 +5,7 @@ import MypageDownload from './MypageDownload';
 import MypageProfile from './MypageProfile';
 import MypageWrite from './MypageWrite';
 
-function Mypage() {
+function Mypage({}) {
 
     const [currentComponent, setCurrentComponent] = useState('profile');
 
