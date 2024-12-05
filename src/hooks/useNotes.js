@@ -1,5 +1,5 @@
 import { useEffect ,useState } from 'react';
-import api from 'axios';
+import api from '../api/axios';
 
 function useNotes(courseId) {
 
@@ -16,7 +16,7 @@ function useNotes(courseId) {
                 setNotes(response.data);
             } catch (error) {
                 setError('강의 노트 조회 중 오류 발생');
-                console.log()
+                console.log('error 상세: ', error.response);
             }
         };
 
