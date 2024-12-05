@@ -7,7 +7,7 @@ import MyPage from "./pages/MyPage";
 import PostCreatePage from "./pages/PostCreatePage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-
+import CourseBoardPage from './pages/CourseBoardPage';
 
 import "./index.css";
 import "./App.css";
@@ -26,6 +26,8 @@ function App() {
               <Routes>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/search" element={<SearchResultPage />} />
+                  {/* 하위 routing → CourseBoard */}
+                <Route path="/courseboard/:courseId" element={<CourseBoardPage />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/post/create" element={<PostCreatePage />} />
               </Routes>

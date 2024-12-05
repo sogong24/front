@@ -1,40 +1,61 @@
-.mypageprofile{
+/* 전체 컨테이너 */
+.mypageprofile {
     display: flex;
     flex-direction: column;
-    padding: 5%;
-    margin: 3%;
+    padding: 2rem;
+    background-color: #f5f5f5;
 }
 
-.mypageprofile-container{
-    font: 1.3rem bolder;
+/* 각 섹션 컨테이너 */
+.mypageprofile-container {
+    margin-bottom: 1.5rem;
 }
 
-.mypageprofile-box{
+.mypageprofile-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+/* 박스 스타일 */
+.mypageprofile-box {
     background-color: #fff;
-    height: 4rem;
     border-radius: 1rem;
-    margin: 3%;
-    padding: 3%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.mypageprofile-box-reputation{
-    border-radius: 1rem;
-    margin: 3%;
-    padding: 3%;
+/* 평판 관리 스타일 */
+.mypageprofile-reputation {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
 }
 
-.reputation{
-    border-radius: 10px;
-    font: 1rem bold;
+.reputation-box {
+    flex: 1;
     background-color: #fff;
-    width: 40%;
-    padding: 3%;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.mypageprofile-box input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    font: 1.3rem bold;
+
+.icon {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 0.5rem;
+}
+
+.reputation-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
 }

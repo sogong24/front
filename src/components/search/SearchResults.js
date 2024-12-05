@@ -1,8 +1,12 @@
 // components/search/SearchResults.js - Only UI Rendering
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SearchResults({ results, error }) {
+
+    const navigate = useNavigate();
+
     if (error) {
         return <div className="text-red-500">{error}</div>;
     }
@@ -10,17 +14,18 @@ function SearchResults({ results, error }) {
     if (!results || results.length === 0) {
         return <div>검색 결과가 없습니다. 다른 검색어로 시도해보세요.</div>;
     }
-    // lecture - courses .. ? 
+    
     return (
         <div className="space-y-4">
-            {results.map((lecture) => (
+            {results.map((courses) => (
                 <div 
-                    key={lecture.id} 
+                    key={courses.id} 
                     className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    onClick={() => navigate(`/courseboard/${courses.id}`)}
                 >
-                    <h3 className="text-lg font-semibold">{lecture.title}</h3>
+                    <h3 className="text-lg font-semibold">{courses.title}</h3>
                     <p className="text-gray-600">
-                        {lecture.gradeAndSemester} | {lecture.professorName}
+                    | {courses.professorName} 
                     </p>
                 </div>
             ))}
