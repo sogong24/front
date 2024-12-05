@@ -1,13 +1,10 @@
-import React from "react";
-// import Reactrouter from "react-router-dom";
+import React, { useState } from "react";
 import "./Mypage.css";
-import { useState } from "react";
-import MypageDownload from './MypageDownload';
-import MypageProfile from './MypageProfile';
-import MypageWrite from './MypageWrite';
+import MypageProfile from "./MypageProfile";
+import MypageDownload from "./MypageDownload";
+import MypageWrite from "./MypageWrite";
 
 function Mypage() {
-
     const [currentComponent, setCurrentComponent] = useState('profile');
 
     const renderComponent = () => {
@@ -22,17 +19,38 @@ function Mypage() {
                 return <MypageProfile />;
         }
     };
+
     return (
-        <div className="Mypage">
-            <div className="profile"><img alt="profile"/></div>
+        <div className="mypage">
+            <div className="profile">
+                <img
+                    className="profile-image"
+                    src="https://via.placeholder.com/100" // 대체 이미지 경로
+                    alt="profile"
+                />
+                <h2 className="profile-name">홍길동</h2>
+            </div>
             <div className="menu">
-                <div className="menu-button" onClick={() => setCurrentComponent('profile')}>프로필</div>
-                <div className="menu-button" onClick={() => setCurrentComponent('download')}>다운받은목록</div>
-                <div className="menu-button" onClick={() => setCurrentComponent('write')}>작성한목록</div>
+                <button
+                    className={`menu-button ${currentComponent === 'profile' ? 'active' : ''}`}
+                    onClick={() => setCurrentComponent('profile')}
+                >
+                    프로필
+                </button>
+                <button
+                    className={`menu-button ${currentComponent === 'download' ? 'active' : ''}`}
+                    onClick={() => setCurrentComponent('download')}
+                >
+                    다운 받은 목록
+                </button>
+                <button
+                    className={`menu-button ${currentComponent === 'write' ? 'active' : ''}`}
+                    onClick={() => setCurrentComponent('write')}
+                >
+                    작성한 목록
+                </button>
             </div>
-            <div className="content">
-                {renderComponent()}
-            </div>
+            <div className="content">{renderComponent()}</div>
         </div>
     );
 }
