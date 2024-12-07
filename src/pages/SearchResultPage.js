@@ -49,14 +49,10 @@ function SearchResultPage() {
                     </div>
                     
                     {/* 검색 결과 컴포넌트 */}
-                    {isSearching ? (
-                        <div> 검색 중 입니다. 잠시만 기다려주세요.</div>
-                    ) : (
-                        <SearchResults
+                    <SearchResults
                         results={searchResults}
-                            error={error}
-                        />
-                    )}
+                        error={error}
+                    />
                 </div>
             </div>
         </div>
