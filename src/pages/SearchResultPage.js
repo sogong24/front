@@ -1,5 +1,6 @@
 // pages/SearchResultPage.js - 페이지 구성만 담당
 
+// import React, { useEffect } from 'react';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import SearchFrame from '../components/common/SearchFrame';
@@ -10,14 +11,21 @@ function SearchResultPage() {
     const location = useLocation();
     const searchParams = Object.fromEntries(new URLSearchParams(location.search));
     
-    // 디버깅 추가
-    console.log('URL search:', location.search);
-    console.log('Parsed searchParams:', searchParams);
-    console.log('searchParams is empty?:', Object.keys(searchParams).length === 0);
+    const { 
+        searchResults, 
+        error, 
+        isSearching 
+    } = useSearch(searchParams);
 
-    const { searchResults, error } = useSearch(searchParams);
-    
-    console.log('검색 결과:', searchResults); // 검색 결과 로깅 추가
+    //  // 로딩 상태 확인을 위한 useEffect 추가
+    //  useEffect(() => {
+    //     console.log('현재 검색 상태:', {
+    //         isSearching,
+    //         resultsLength: searchResults?.length,
+    //         searchParams
+    //     });
+    // }, [isSearching, searchResults, searchParams]);
+
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -41,10 +49,14 @@ function SearchResultPage() {
                     </div>
                     
                     {/* 검색 결과 컴포넌트 */}
-                    <SearchResults
+                    {isSearching ? (
+                        <div> 검색 중 입니다. 잠시만 기다려주세요.</div>
+                    ) : (
+                        <SearchResults
                         results={searchResults}
-                        error={error}
-                    />
+                            error={error}
+                        />
+                    )}
                 </div>
             </div>
         </div>
