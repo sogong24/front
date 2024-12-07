@@ -1,10 +1,13 @@
 import React from 'react';
 import { FaCog } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
 
 function SettingBar() {
+
+    const { logout } = useAuth();
+
     const handleLogout = () => {
-        // logout 로직 구현 추후에 - 현재는 콘솔 찍기만
-        console.log('Logout Clicked');
+        logout();
     };
 
     return (
