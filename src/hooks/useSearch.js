@@ -2,6 +2,8 @@ import api from '../api/axios';
 import { useState, useEffect } from 'react';
 
 function useSearch(initialSearchParams = null) {
+    // 디버깅 로그 추가
+
     const [searchParams, setSearchParams] = useState(initialSearchParams || {
         gradeAndSemester: '',
         title: '',
@@ -10,6 +12,9 @@ function useSearch(initialSearchParams = null) {
 
     const[searchResults, setSearchResults] = useState([]);
     const[error, setError] = useState(null);
+    // 파라미터 지속적인 송신 방지
+    // 검색 중일 때는 검색 버튼 비활성화 
+    const[isSearching, setIsSearching] = useState(false);
 
     // 검색어 입력 처리
     const handleSearchUpdate = (type, value) => {
@@ -26,15 +31,20 @@ function useSearch(initialSearchParams = null) {
             alert('검색 조건을 입력하세요');
             return false;
         }
+        setIsSearching(true); 
         return searchParams; // 검색 파라미터 반환
     };
 
     // 검색 결과 조회
     useEffect(() => {
+        if (!initialSearchParams || Object.keys(initialSearchParams).length === 0) {
+            return;
+        }
+
+        setIsSearching(true);
+        
         const fetchResults = async () => {
             try {
-                console.log('API 요청 파라미터:', initialSearchParams);
-
                 // gradeAndSemester 파싱
                 let grade, semester;
                 if (initialSearchParams?.gradeAndSemester) {
@@ -54,31 +64,30 @@ function useSearch(initialSearchParams = null) {
 
 
                 const response = await api.get('/api/courses', { params }); 
-                console.log('API 응답 결과: ', response.data);
+                // console.log('API 응답 결과: ', response.data);
                 
                 if(response.data && response.data.length > 0) {
                     setSearchResults(response.data);
                 } else {
-                    console.log('검색 결과 없음');
                     setSearchResults([]);
                 }
                 setError(null);
-                } catch(error) {
-                    setError('검색 중 오류 발생');
-                    setSearchResults([]);
-                }
-            };
- 
-        // 검색 결과 존재할 때
-        if(initialSearchParams) {
-            fetchResults();
-        }
+            } catch(error) {
+                setError('검색 중 오류 발생');
+                setSearchResults([]);
+            } finally {
+                setIsSearching(false);
+            }
+        };
+
+        fetchResults();
     }, [initialSearchParams]);
 
     return {
         searchParams, 
         searchResults, 
-        error, 
+        error,
+        isSearching,
         handleSearchUpdate, 
         handleSearch
     };
