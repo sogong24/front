@@ -18,7 +18,6 @@ export default function MypageWrite() {
                             {item.semester}
                         </div>
                     </div>
-                    <TfiWrite className="write-icon" />
                 </div>
             ))}
         </div>

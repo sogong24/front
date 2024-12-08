@@ -1,16 +1,19 @@
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import useAuth from '../hooks/useAuth';
+import useAuth from "../hooks/useAuth";
+import { useState } from "react";
 
 function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const loginClick = () => {
-    login();
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const loginClick = () => {
+    login(email, password);
+  };
 
   const signupClick = () => {
     navigate("/signup");
@@ -30,6 +33,8 @@ function Login() {
               <input
                 className="mx-3 flex-grow bg-login-input-color"
                 placeholder="example@uos.ac.kr"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               ></input>
             </div>
 
@@ -39,6 +44,8 @@ function Login() {
                 className="mx-3 flex-grow bg-login-input-color"
                 placeholder="password"
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>
 

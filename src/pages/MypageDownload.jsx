@@ -20,7 +20,6 @@ export default function MypageDownload() {
                             {item.semester}
                         </div>
                     </div>
-                    <GoDownload className="download-icon" />
                 </div>
             ))}
         </div>

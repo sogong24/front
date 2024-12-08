@@ -7,7 +7,10 @@ function FilterInputGroup({ sendFilterData }) {
     semester: "",
     courseName: "",
     professor: "",
+    info: "",
   });
+
+  // 설명 추가
 
   const handleChange = (key) => (e) => {
     setFilters({ ...filters, [key]: e.target.value });
@@ -18,8 +21,8 @@ function FilterInputGroup({ sendFilterData }) {
   }, [filters, sendFilterData]);
 
   return (
-    <div className="flex my-20 bg-transparent justify-center items-center">
-      <div className="px-[130px] bg-transparent rounded-xl space-y-10">
+    <div className="flex my-4 bg-transparent justify-center items-center">
+      <div className="px-[130px] bg-transparent rounded-xl space-y-6">
         <div className="flex justify-between">
           <div className="bg-search-filter-color rounded-2xl shadow-md border flex items-center mr-5 justify-between">
             <span className="pl-4 font-semibold flex-none">학년: </span>
@@ -60,6 +63,14 @@ function FilterInputGroup({ sendFilterData }) {
             onChange={handleChange("professor")}
           />
           <FaSearch className="flex-none pr-3" size={30} />
+        </div>
+        <div className="w-full ">
+          <textarea
+            className="w-full bg-search-filter-color h-[120px] mt-4 rounded-xl p-3"
+            placeholder="설명을 입력하세요."
+            value={filters.info}
+            onChange={handleChange("info")}
+          ></textarea>
         </div>
       </div>
     </div>

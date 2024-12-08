@@ -7,6 +7,16 @@ import MypageWrite from './MypageWrite';
 
 function Mypage() {
 
+    // const { user, error } = useUser();
+
+    // if (error) {
+    //     return <p>{error}</p>; // 에러 메시지 출력
+    // }
+
+    // if (!user) {
+    //     return <p>유저 정보를 불러오는 중...</p>; // 로딩 메시지
+    // }
+
     const [currentComponent, setCurrentComponent] = useState('profile');
 
     const renderComponent = () => {
