@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./MypageDownload.css";
-import { GoDownload } from "react-icons/go";
 import useUser from "../hooks/useUser"; // 유저 정보
 import api from "../api/axios"; // API 호출
 
@@ -49,7 +48,6 @@ export default function MypageDownload() {
                             {note.uploadDate}
                         </div>
                     </div>
-                    <GoDownload className="download-icon" />
                 </div>
             ))}
         </div>
