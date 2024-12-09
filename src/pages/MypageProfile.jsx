@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./MypageProfile.css";
 import { BiLike, BiDislike } from "react-icons/bi";
-import useUser from "../hooks/useUser"; // 유저 정보
-import useAllNotes from "../hooks/useAllNotes"; // 모든 노트 정보
+import useAllNotes from "../hooks/useAllNotes"; // 모든 노트 정보 훅
 
-export default function MypageProfile() {
-    const { user, error: userError, loading: userLoading } = useUser(); // 유저 데이터
-    const { notes, error: notesError } = useAllNotes(); // 모든 노트 데이터
+export default function MypageProfile({ user }) {
+    const { notes, error: notesError } = useAllNotes(); // 모든 노트 데이터 가져오기
     const [likesCount, setLikesCount] = useState(0);
     const [dislikesCount, setDislikesCount] = useState(0);
 
@@ -15,21 +13,22 @@ export default function MypageProfile() {
             // 유저가 업로드한 노트를 필터링
             const userNotes = notes.filter((note) => note.uploaderID === user.id);
 
-            // 좋아요/싫어요 합산
-            const totalLikes = userNotes.reduce((sum, note) => sum + note.likesCount, 0);
-            const totalDislikes = userNotes.reduce((sum, note) => sum + note.dislikesCount, 0);
+            // 좋아요/싫어요 합산 계산
+            const totalLikes = userNotes.reduce((sum, note) => sum + (note.likesCount || 0), 0);
+            const totalDislikes = userNotes.reduce((sum, note) => sum + (note.dislikesCount || 0), 0);
 
             setLikesCount(totalLikes);
             setDislikesCount(totalDislikes);
         }
     }, [user, notes]);
 
-    if (userLoading) {
-        return <p>프로필 정보를 불러오는 중...</p>; // 유저 로딩 중
+    // 에러 처리
+    if (!user) {
+        return <p>유저 정보를 불러오는 중...</p>;
     }
 
-    if (userError || notesError) {
-        return <p>데이터를 불러오는 데 실패했습니다.</p>; // 에러 처리
+    if (notesError) {
+        return <p>노트 데이터를 불러오는 데 실패했습니다.</p>;
     }
 
     return (
