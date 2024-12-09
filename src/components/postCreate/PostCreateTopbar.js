@@ -109,36 +109,36 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
   // 글 제목도 같이 데이터베이스 창에 저장됨
   // courseID는 get함수로, userID는 토큰을 복호화해서 불러오기
 
-  const clickClose = () => {
-    navigate("/");
-  };
-  // X 버튼을 눌렀을 때
+//   const clickClose = () => {
+//     navigate("/");
+//   };
+//   // X 버튼을 눌렀을 때
 
-  return (
-    <div className="flex flex-col">
-      <div className="flex justify-between items-center">
-        <IoIosClose className="cursor-pointer" size={50} onClick={clickClose} />
-        <div
-          className="
-          text-2xl
-          font-bold
-          text-center
-          flex-grow
-          mx-4
-          bg-transparent"
-        >
-          글 작성
-        </div>
-        <button
-          className="px-2 py-1 mr-2 bg-button-red rounded-xl border border-black"
-          onClick={clickComplete}
-        >
-          <div className="text-white">완료</div>
-        </button>
-      </div>
-      <div className="border-b my-3 border-black"></div>
-    </div>
-  );
-}
+//   return (
+//     <div className="flex flex-col">
+//       <div className="flex justify-between items-center">
+//         <IoIosClose className="cursor-pointer" size={50} onClick={clickClose} />
+//         <div
+//           className="
+//           text-2xl
+//           font-bold
+//           text-center
+//           flex-grow
+//           mx-4
+//           bg-transparent"
+//         >
+//           글 작성
+//         </div>
+//         <button
+//           className="px-2 py-1 mr-2 bg-button-red rounded-xl border border-black"
+//           onClick={clickComplete}
+//         >
+//           <div className="text-white">완료</div>
+//         </button>
+//       </div>
+//       <div className="border-b my-3 border-black"></div>
+//     </div>
+//   );
+// }
 
-export default PostCreateTopbar;
+// export default PostCreateTopbar;
