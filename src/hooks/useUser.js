@@ -8,7 +8,7 @@ function useUser() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await api.get("/user/me");
+                const response = await api.get("/users/me");
                 setUser(response.data);
             } catch (error) {
                 setError("유저 정보를 가져오는 데 실패했습니다.");
