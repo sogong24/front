@@ -3,8 +3,7 @@ import "./MypageWrite.css";
 import useUser from "../hooks/useUser"; // 유저 정보 가져오기
 import useAllNotes from "../hooks/useAllNotes"; // 모든 노트 가져오기
 
-export default function MypageWrite() {
-    const { user, error: userError, loading: userLoading } = useUser(); // 유저 데이터
+export default function MypageWrite({user}) {
     const { notes, error: notesError } = useAllNotes(); // 노트 데이터
     const [userNotes, setUserNotes] = useState([]); // 유저가 작성한 노트
 
@@ -15,14 +14,6 @@ export default function MypageWrite() {
             setUserNotes(filteredNotes);
         }
     }, [user, notes]);
-
-    if (userLoading || !notes) {
-        return <p>로딩 중...</p>; // 로딩 메시지
-    }
-
-    if (userError || notesError) {
-        return <p>데이터를 불러오는 데 실패했습니다. 다시 시도해주세요.</p>; // 에러 메시지
-    }
 
     return (
         <div className="mypageWrite">

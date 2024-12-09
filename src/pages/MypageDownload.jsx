@@ -3,8 +3,7 @@ import "./MypageDownload.css";
 import useUser from "../hooks/useUser"; // 유저 정보
 import api from "../api/axios"; // API 호출
 
-export default function MypageDownload() {
-    const { user, error: userError, loading: userLoading } = useUser(); // 유저 데이터 가져오기
+export default function MypageDownload({user}) {
     const [downloadedNotes, setDownloadedNotes] = useState([]);
     const [error, setError] = useState(null);
 
@@ -28,14 +27,6 @@ export default function MypageDownload() {
 
         fetchDownloadedNotes();
     }, [user]);
-
-    if (userLoading) {
-        return <p>로딩 중...</p>; // 로딩 메시지
-    }
-
-    if (userError || error) {
-        return <p>{error || "유저 데이터를 불러오는 데 실패했습니다."}</p>; // 에러 처리
-    }
 
     return (
         <div className="mypageDownload">
