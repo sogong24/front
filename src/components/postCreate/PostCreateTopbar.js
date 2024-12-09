@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import base64 from "base-64";
 import api from "../../api/axios";
+import useUploadPoint from "../../hooks/useUploadPoint";
 
 function PostCreateTopbar({ courseInfo, fileInfo }) {
   const navigate = useNavigate();
+  const { addUploadPoint } = useUploadPoint();
 
   const clickComplete = async () => {
     const userGrade = courseInfo.grade;
@@ -77,9 +79,16 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
         }
       );
 
-      alert("게시물이 등록되었습니다.");
-      console.log(uploadResponse.data);
-      navigate("/home");
+      // 게시글 업로드 성공 시 포인트 추가
+      const pointResult = await addUploadPoint();
+
+      if (pointResult && pointResult.success) {
+        alert(`게시물이 등록되었습니다.\n글 작성 보상으로 5포인트가 지급되었습니다.`);
+        navigate("/home");
+      } else {
+        alert("게시물이 등록되었습니다.");
+        navigate("/home");
+      }
     } catch (error) {
       console.error("파일 업로드 실패:", error);
     }

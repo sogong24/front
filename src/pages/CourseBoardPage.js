@@ -2,12 +2,13 @@
 // layout만 우선 구현하고 기능은 나중에 hooks에다가 구현
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SearchFrame from '../components/common/SearchFrame';
 import useNotes from '../hooks/useNotes';
 
 function CourseBoardPage() {
 
+    const navigate = useNavigate();
     const { courseId } = useParams();
     const { notes, error } = useNotes(courseId);
 
@@ -35,11 +36,11 @@ function CourseBoardPage() {
                                 <div
                                     key={note.id}
                                     className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                                    onClick={() => navigate(`/notedownload/${note.id}`)}
                                 >
                                     <h3 className="text-lg font-semibold">{note.title}</h3>
                                     <p className="text-gray-600">{note.description}</p>
                                     <div className="mt-2 text-sm text-gray-500">
-                                        <span className="ml-4">{note.uploaderID}</span>
                                         <span className="ml-2">Like: {note.likesCount}</span>
                                         <span className="ml-2">DisLike: {note.dislikesCount}</span>
                                     </div>

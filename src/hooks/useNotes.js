@@ -15,16 +15,13 @@ function useNotes(courseId) {
                 }
 
                 // 백엔드 endpoint 확인 필요
-                const response = await api.get(`/api/notes/${courseId}`, {
+                const response = await api.get(`http://localhost:3000/api/notes/${courseId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                console.log('courseId: ', courseId);
-
                 if(!response.data || (Array.isArray(response.data) && response.data.length === 0 )) {
                     console.log('아직 게시된 강의 노트가 없습니다.');
-                    console.log('token: ', token);
                 }
 
                 setNotes(response.data);

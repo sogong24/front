@@ -5,7 +5,6 @@ import useAuth from '../../hooks/useAuth';
 function SettingBar() {
 
     const { logout } = useAuth();
-
     const handleLogout = () => {
         logout();
     };
@@ -15,7 +14,7 @@ function SettingBar() {
             <div className="flex items-center">
                 <div className="mr-4">
                     {/* user Nickname - DB에서 가져오는 건 추후에 구현  */}
-                    <span className="text-gray-700 font-semibold">O_u.chan</span>
+                    <span className="text-gray-700 font-semibold">ID : </span>
                 </div>
                 <button onClick={handleLogout} className="text-red-500">
                     Logout

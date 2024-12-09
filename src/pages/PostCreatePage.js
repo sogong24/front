@@ -15,7 +15,7 @@ function PostCreatePage() {
   };
 
   useEffect(() => {
-    console.log("받은 데이터 : " + JSON.stringify(filterData));
+    // console.log("받은 데이터 : " + JSON.stringify(filterData));
   }, [filterData]);
 
   return (
