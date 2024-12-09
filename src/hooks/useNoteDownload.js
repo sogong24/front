@@ -1,78 +1,94 @@
 import { useState } from 'react';
-import axios from '../api/axios';
-import usePoints from './usePoints';
+import api from '../api/axios';
+
 function useNoteDownload() {
-
     const [error, setError] = useState(null);
-    const { checkAndDeductPoint } = usePoints();
+    const [loading, setLoading] = useState(false);
 
-    const downloadNote = async (noteId) => {
-        const token = localStorage.getItem('token');
-
-        if(!token || !userInfo) {
-            setError('로그인 후 이용해주세요');
-            return;
-        }
-
+    const downloadNote = async (noteID) => {
         try {
             setError(null);
-
-            const canDownload = await checkAndDeductPoint(noteId);
-            if(!canDownload) {
-                return;
+            setLoading(true);
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                setError('로그인이 필요합니다.');
+                return false;
             }
 
-            const response = await axios.get(`http://localhost:3000/api/notes/${noteId}/download`, {
-                responseType: 'blob',
-                headers: {
-                    'Authorization': `Bearer ${token}`
+            // JWT 토큰에서 사용자 ID 추출
+            const payload = token.split('.')[1];
+            const decodedPayload = JSON.parse(atob(payload));
+            const userID = decodedPayload.userId;
+
+            // 1. 먼저 노트 구매 시도
+            try {
+                await api.post(`/api/notes/${noteID}/purchase/${userID}`);
+            } catch (purchaseError) {
+                if (purchaseError.response?.status === 403) {
+                    setError('포인트가 부족합니다.');
+                    return false;
                 }
+                throw purchaseError;
+            }
+
+            // 2. 구매 성공 후 다운로드 시도
+            const response = await api.get(`/api/notes/${noteID}/download/${userID}`, {
+                responseType: 'blob'
             });
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a'); // HTMl의 <a> tag
-            link.href = url;
+            // 에러 응답 체크
+            if (response.data instanceof Blob && response.data.type === 'application/json') {
+                const text = await response.data.text();
+                const error = JSON.parse(text);
+                throw new Error(error.message || '다운로드에 실패했습니다.');
+            }
 
+            // 파일 다운로드 처리
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            
+            // Content-Disposition 헤더에서 파일명 추출
             const contentDisposition = response.headers['content-disposition'];
             let filename = 'note.pdf';
-            if(contentDisposition) {
-                const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-                if(filenameMatch && filenameMatch.length === 2) filename = filenameMatch[1];
-                // [
-                //   'filename="미분적분학_1주차.pdf"',  // match[0]: 전체 매칭
-                //   '미분적분학_1주차.pdf'              // match[1]: 첫 번째 캡처 그룹
-                // ]
+            if (contentDisposition) {
+                // filename="노트제목.pdf" 형식에서 파일명 추출
+                const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                const matches = filenameRegex.exec(contentDisposition);
+                if (matches != null && matches[1]) {
+                    filename = matches[1].replace(/['"]/g, '');
+                    // URL 인코딩된 파일명 디코딩
+                    try {
+                        filename = decodeURIComponent(filename);
+                    } catch (e) {
+                        // 디코딩 실패 시 원본 값 사용
+                        console.warn('파일명 디코딩 실패:', e);
+                    }
+                }
             }
-            link.setAttribute('download',filename);
+            
+            link.setAttribute('download', filename);
             document.body.appendChild(link);
             link.click();
             link.remove();
             window.URL.revokeObjectURL(url);
-            // 가상의 link를 dom에 추가 -> 클릭 이벤트 발생 -> 다운로드 클릭 이벤트(브라우저에서 즉시 시작(비동기)) 
-            // 가상 링크 DOM에서 제거 -> createObjectURL로 생성한 임시 url 제거 
+
+            return true;
         } catch (err) {
-            if(err.response) {
-                switch(err.response.status) {
-                    case 401:
-                        setError('인증 만료, 다시 로그인 해주세요');
-                        break;
-                    case 403:
-                        setError('권한이 없습니다');
-                        break;
-                    case 404:
-                        setError('노트를 찾을 수 없습니다.');
-                        break;
-                    default:
-                        setError('다운로드에 실패하였습니다. 다시 시도해주세요.');
-                }
+            console.error('노트 다운로드 실패:', err);
+            if (err.response?.status === 400) {
+                setError('이미 구매한 노트입니다.');
             } else {
-                setError('서버 오류가 발생했습니다. 다시 시도해주세요.');
-            } 
-            console.error('error: ', err);
+                setError(err.response?.data?.error || '다운로드에 실패했습니다.');
+            }
+            return false;
+        } finally {
+            setLoading(false);
         }
     };
 
-    return { downloadNote, error };
+    return { downloadNote, error, loading };
 }
 
 export default useNoteDownload;

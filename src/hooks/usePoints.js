@@ -17,7 +17,7 @@ function usePoints() {
                 return false;
             }
 
-            const response = await axios.post(`/api/users/points/check-download/${noteId}`, null, {
+            const response = await axios.post(`/api/users/points/check-download/${noteID}`, null, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

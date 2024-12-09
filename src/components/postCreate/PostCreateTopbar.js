@@ -50,26 +50,36 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
       courseID = result[0].id;
     }
     // courseID 추출
-
-    const formData = new FormData();
-    formData.append("uploaderID", decodingInfoJson.userId);
-    formData.append("courseID", courseID);
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("file", fileInfo[0]);
-
-    /*
-   값 확인
-    console.log("uploader ID: ", decodingInfoJson.userId);
-    console.log("usergrade: ", userGrade);
-    console.log("description: ", description);
-    console.log("title: ", title);
-    console.log("courseid: ", courseID);
-    */
-
     try {
-      const uploadResponse = await api.post(
-        "http://localhost:3000/api/notes",
+      const formData = new FormData();
+      formData.append("uploaderID", decodingInfoJson.userId);
+      formData.append("courseID", courseID);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("file", fileInfo[0]);
+  
+      /*
+     값 확인
+      console.log("uploader ID: ", decodingInfoJson.userId);
+      console.log("usergrade: ", userGrade);
+      console.log("description: ", description);
+      console.log("title: ", title);
+      console.log("courseid: ", courseID);
+      */
+  
+      // try {
+      //   const uploadResponse = await api.post(
+      //     "http://localhost:3000/api/notes",
+      //     formData,
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${token}`,
+      //         "Content-Type": "multipart/form-data",
+      //       },
+      //     }
+      //   );
+  
+      await api.post("/api/notes",
         formData,
         {
           headers: {
@@ -78,21 +88,22 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
           },
         }
       );
-
-      // 게시글 업로드 성공 시 포인트 추가
-      const pointResult = await addUploadPoint();
-
-      if (pointResult && pointResult.success) {
-        alert(`게시물이 등록되었습니다.\n글 작성 보상으로 5포인트가 지급되었습니다.`);
-        navigate("/home");
-      } else {
-        alert("게시물이 등록되었습니다.");
+  
+        // 게시글 업로드 성공 시 포인트 추가
+        const pointResult = await addUploadPoint();
+  
+        if (pointResult && pointResult.success) {
+          alert(`게시물이 등록되었습니다.\n글 작성 보상으로 5포인트가 지급되었습니다.`);
+          navigate("/home");
+        } else {
+          alert("게시물이 등록되었습니다.");
         navigate("/home");
       }
     } catch (error) {
       console.error("파일 업로드 실패:", error);
     }
-  };
+
+    }
   // 완료 버튼을 눌렀을 때
   // pdf 파일과 정보(학기, 교수명, 강의명)를 데이터베이스에 저장 후 다운로드 창으로 이동.
   // 글 제목도 같이 데이터베이스 창에 저장됨

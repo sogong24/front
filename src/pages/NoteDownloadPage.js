@@ -3,115 +3,85 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useNoteDetail from '../hooks/useNoteDetail';
 import useNoteDownload from '../hooks/useNoteDownload';
-import axios from '../api/axios';
 
 function NoteDownloadPage() {
     const { noteId } = useParams();
-    const { downloadNote, error } = useNoteDownload();
-    const [noteInfo, setNoteInfo] = useState({
-        title: '',
-        description: '',
-        courseTitle: '',
-        professorName: '',
-        grade: '',
-        semester: '',
-        authorName: '',
-        uploadDate: ''
-    });
-    const [fetchError, setFetchError] = useState(null);
+    const { noteInfo, error: detailError, loading: detailLoading, getNoteDetail } = useNoteDetail();
+    const { downloadNote, error: downloadError, loading: downloadLoading } = useNoteDownload();
 
     useEffect(() => {
-        const fetchNoteInfo = async () => {
-            try {
-                setFetchError(null);
-                const token = localStorage.getItem('token');
-
-                if(!token) {
-                    setFetchError('로그인이 필요합니다.');
-                    return;
-                }
-
-
-                const response = await axios.get(`/api/notes/detail/${noteId}`, {
-                    headers: {
-                        'Authorization' : `Bearer ${token}`
-                    }
-                });
-                console.log('API Response: ',response);
-                setNoteInfo(response.data);
-            } catch (err) {
-                console.error('노트 정보 조회 실패:');
-                setFetchError(err.response?.data?.message || '노트 정보를 불러오지 못했습니다.');
-            } 
-        };
-
-        fetchNoteInfo();
+        getNoteDetail(noteId);
     }, [noteId]);
 
+    const handleDownload = async () => {
+        await downloadNote(noteId);
+    };
+
+    if (detailLoading) {
+        return <div className="text-center mt-8">로딩 중...</div>;
+    }
+
+    if (detailError) {
+        return <div className="text-red-500 text-center mt-8">{detailError}</div>;
+    }
+
     return (
-        <div className="flex my-4 bg-transparent justify-center items-center">
-            <div className="px-[130px] bg-transparent rounded-xl space-y-6">
-                {/* 노트 기본 정보 */}
-                <div className="flex justify-between">
-                    <div className="bg-search-filter-color rounded-2xl shadow-md border flex items-center mr-5 justify-between p-4">
-                        <span className="pl-4 font-semibold flex-none">학년: </span>
-                        <span className="pl-3">{noteInfo.grade}</span>
+        <div className="max-w-2xl mx-auto p-4">
+            {noteInfo && (
+                <div className="bg-white rounded-lg shadow-md p-6">
+                    <h1 className="text-2xl font-bold mb-4">{noteInfo.title}</h1>
+                    
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <p className="text-gray-600">강의명</p>
+                            <p className="font-semibold">{noteInfo.courseTitle}</p>
+                        </div>
+                        <div>
+                            <p className="text-gray-600">교수명</p>
+                            <p className="font-semibold">{noteInfo.professorName}</p>
+                        </div>
+                        <div>
+                            <p className="text-gray-600">학년/학기</p>
+                            <p className="font-semibold">{noteInfo.grade}학년 {noteInfo.semester}학기</p>
+                        </div>
+                        <div>
+                            <p className="text-gray-600">작성자</p>
+                            <p className="font-semibold">{noteInfo.authorName}</p>
+                        </div>
                     </div>
-                    <div className="bg-search-filter-color rounded-2xl shadow-md border flex items-center p-4">
-                        <span className="pl-3 font-semibold flex-none">학기: </span>
-                        <span className="pl-4">{noteInfo.semester}</span>
+
+                    <div className="mb-6">
+                        <p className="text-gray-600">설명</p>
+                        <p className="mt-2">{noteInfo.description}</p>
                     </div>
-                </div>
 
-                {/* 강의명 */}
-                <div className="bg-search-filter-color rounded-2xl shadow-md border flex items-center p-4">
-                    <span className="pl-3 flex-none font-semibold">강의명: </span>
-                    <span className="pl-4">{noteInfo.courseTitle}</span>
-                </div>
-
-                {/* 교수명 */}
-                <div className="bg-search-filter-color rounded-2xl shadow-md border flex items-center p-4">
-                    <span className="pl-3 flex-none font-semibold">교수명: </span>
-                    <span className="pl-4">{noteInfo.professorName}</span>
-                </div>
-
-                {/* 작성자 및 업로드 날짜 */}
-                <div className="flex justify-between">
-                    <div className="bg-search-filter-color rounded-2xl shadow-md border flex items-center mr-5 p-4">
-                        <span className="pl-3 flex-none font-semibold">작성자: </span>
-                        <span className="pl-4">{noteInfo.authorName}</span>
+                    <div className="text-gray-500 text-sm mb-6">
+                        업로드 날짜: {new Date(noteInfo.uploadDate).toLocaleDateString()}
                     </div>
-                    <div className="bg-search-filter-color rounded-2xl shadow-md border flex items-center p-4">
-                        <span className="pl-3 flex-none font-semibold">업로드 날짜: </span>
-                        <span className="pl-4">{new Date(noteInfo.uploadDate).toLocaleDateString()}</span>
-                    </div>
-                </div>
 
-                {/* 설명 */}
-                <div className="w-full">
-                    <div className="w-full bg-search-filter-color h-[120px] mt-4 rounded-xl p-3">
-                        {noteInfo.description}
+                    <div className="flex justify-center">
+                        <button
+                            onClick={handleDownload}
+                            disabled={downloadLoading}
+                            className={`px-6 py-2 rounded-xl transition-colors ${
+                                downloadLoading 
+                                    ? 'bg-gray-400 cursor-not-allowed' 
+                                    : 'bg-blue-500 hover:bg-blue-600'
+                            } text-white`}
+                        >
+                            {downloadLoading ? '다운로드 중...' : '다운로드'}
+                        </button>
                     </div>
-                </div>
 
-                {/* 다운로드 버튼 */}
-                <div className="flex justify-center mt-6">
-                    <button
-                        onClick={() => downloadNote(noteId)}
-                        className="bg-blue-500 text-white px-6 py-2 rounded-xl hover:bg-blue-600 transition-colors"
-                    >
-                        다운로드
-                    </button>
+                    {downloadError && (
+                        <div className="text-red-500 text-center mt-4">
+                            {downloadError}
+                        </div>
+                    )}
                 </div>
-
-                {/* 에러 메시지 */}
-                {error && (
-                    <div className="text-red-500 text-center mt-4">
-                        {error}
-                    </div>
-                )}
-            </div>
+            )}
         </div>
     );
 }

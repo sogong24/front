@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from '../api/axios';
+import api from '../api/axios';
 
 function useUploadPoint() {
     const [error, setError] = useState(null);
@@ -16,11 +16,7 @@ function useUploadPoint() {
                 return null;
             }
 
-            const response = await axios.post('/api/users/points/add-upload', null, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await api.post(`/api/users/points/add-upload`);
 
             return response.data;
         } catch (err) {
