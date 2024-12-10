@@ -1,13 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./Mypage.css";
-import { useState } from "react";
 import useUser from "../hooks/useUser"; // 사용자 정보 훅
 import MypageProfile from "./MypageProfile";
 import MypageDownload from "./MypageDownload";
 import MypageWrite from "./MypageWrite";
 
 function Mypage() {
-    const { user, error, getUserDetail } = useUser(); // 사용자 데이터 가져오기
+    const {user, error, getUserDetail} = useUser(); // 사용자 데이터 가져오기
     const [currentComponent, setCurrentComponent] = useState("profile");
 
     useEffect(() => {
@@ -28,13 +27,13 @@ function Mypage() {
     const renderComponent = () => {
         switch (currentComponent) {
             case "profile":
-                return <MypageProfile user={user} />;
+                return <MypageProfile user={user}/>;
             case "download":
-                return <MypageDownload user={user} />;
+                return <MypageDownload user={user}/>;
             case "write":
-                return <MypageWrite user={user} />;
+                return <MypageWrite user={user}/>;
             default:
-                return <MypageProfile user={user} />;
+                return <MypageProfile user={user}/>;
         }
     };
 
@@ -46,10 +45,10 @@ function Mypage() {
                     프로필
                 </div>
                 <div className="menu-button" onClick={() => setCurrentComponent("download")}>
-                    다운받은목록
+                    다운받은 목록
                 </div>
                 <div className="menu-button" onClick={() => setCurrentComponent("write")}>
-                    작성한목록
+                    작성한 목록
                 </div>
             </div>
             <div className="content">{renderComponent()}</div>

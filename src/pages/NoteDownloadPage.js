@@ -2,38 +2,28 @@
 // searchFrame X 
 
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useNoteDetail from '../hooks/useNoteDetail';
 import useNoteDownload from '../hooks/useNoteDownload';
-import useCourseDetail from "../hooks/useCourseDetail";
-import useUser from "../hooks/useUser";
 
 function NoteDownloadPage() {
-    const { noteId } = useParams();
+    const { noteId } = useLocation().state || {};
     const { noteInfo, error: detailError, loading: detailLoading, getNoteDetail } = useNoteDetail();
     const { downloadNote, error: downloadError, loading: downloadLoading } = useNoteDownload();
-    const { courseInfo, error: courseError, loading: courseLoading, getCourseDetail } = useCourseDetail();
-    const { userInfo, error: userError, loading: userLoading } = useUser();
 
     useEffect(() => {
         getNoteDetail(noteId);
     }, [noteId]);
 
-    useEffect(() => {
-        if (noteInfo && noteInfo.courseId) {
-            getCourseDetail(noteInfo.courseId);
-        }
-    }, [noteInfo]);
-
     const handleDownload = async () => {
         await downloadNote(noteId);
     };
 
-    if (detailLoading || courseLoading || userLoading) {
+    if (detailLoading) {
         return <div className="text-center mt-8">로딩 중...</div>;
     }
 
-    if (detailError || courseError || userError) {
+    if (detailError) {
         return <div className="text-red-500 text-center mt-8">{detailError}</div>;
     }
 
@@ -41,34 +31,34 @@ function NoteDownloadPage() {
         <div className="max-w-2xl mx-auto p-4">
             {noteInfo && (
                 <div className="bg-white rounded-lg shadow-md p-6">
-                    <h1 className="text-2xl font-bold mb-4">{noteInfo.title}</h1>
+                    <h1 className="text-2xl font-bold mb-4">{noteInfo.note.title}</h1>
                     
                     <div className="grid grid-cols-2 gap-4 mb-6">
                         <div>
                             <p className="text-gray-600">강의명</p>
-                            <p className="font-semibold">{noteInfo.title}</p>
+                            <p className="font-semibold">{noteInfo.course.title}</p>
                         </div>
                         <div>
                             <p className="text-gray-600">교수명</p>
-                            <p className="font-semibold">{noteInfo.professorName}</p>
+                            <p className="font-semibold">{noteInfo.course.professorName}</p>
                         </div>
                         <div>
                             <p className="text-gray-600">학년/학기</p>
-                            <p className="font-semibold">{noteInfo.grade}학년 {noteInfo.semester}학기</p>
+                            <p className="font-semibold">{noteInfo.course.grade}학년 {noteInfo.course.semester}학기</p>
                         </div>
                         <div>
                             <p className="text-gray-600">작성자</p>
-                            <p className="font-semibold">{noteInfo.username}</p>
+                            <p className="font-semibold">{noteInfo.note.uploaderName}</p>
                         </div>
                     </div>
 
                     <div className="mb-6">
                         <p className="text-gray-600">설명</p>
-                        <p className="mt-2">{noteInfo.description}</p>
+                        <p className="mt-2">{noteInfo.note.description}</p>
                     </div>
 
                     <div className="text-gray-500 text-sm mb-6">
-                        업로드 날짜: {new Date(noteInfo.uploadDate).toLocaleDateString()}
+                        업로드 날짜: {new Date(noteInfo.note.uploadDate).toLocaleDateString()}
                     </div>
 
                     <div className="flex justify-center">

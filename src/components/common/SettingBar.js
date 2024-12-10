@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaCog } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 
 function SettingBar() {

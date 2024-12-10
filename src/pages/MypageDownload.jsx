@@ -1,32 +1,28 @@
-import React, { useEffect, useState } from "react";
+// noinspection JSUnresolvedReference
+
+import React, {useEffect, useState} from "react";
 import "./MypageDownload.css";
-import useUser from "../hooks/useUser"; // 유저 정보
-import api from "../api/axios"; // API 호출
+import useAllNotes from "../hooks/useAllNotes"; // API 호출
 
 export default function MypageDownload({user}) {
     const [downloadedNotes, setDownloadedNotes] = useState([]);
-    const [error, setError] = useState(null);
+    const { notes, error: notesError } = useAllNotes(); // 노트 데이터
 
     useEffect(() => {
-        const fetchDownloadedNotes = async () => {
-            if (!user) return;
+        if (user && notes.length > 0) {
+            // 유저가 작성한 노트 필터링
+            const filteredNotes = notes.filter((note) => user.accessibleNoteIDs.includes(note.id));
+            setDownloadedNotes(filteredNotes);
+        }
+    }, [user, notes]);
 
-            try {
-                const noteRequests = user.accessibleNoteIDs.map((noteID) =>
-                    api.get(`/api/notes/${noteID}`)
-                );
-                const noteResponses = await Promise.all(noteRequests);
+    if (!notes) {
+        return <p>로딩 중...</p>; // 로딩 메시지
+    }
 
-                const notes = noteResponses.map((response) => response.data);
-                setDownloadedNotes(notes);
-            } catch (err) {
-                setError("다운로드한 노트 데이터를 가져오는 데 실패했습니다.");
-                console.error(err);
-            }
-        };
-
-        fetchDownloadedNotes();
-    }, [user]);
+    if (notesError) {
+        return <p>데이터를 불러오는 데 실패했습니다. 다시 시도해주세요.</p>; // 에러 메시지
+    }
 
     return (
         <div className="mypageDownload">
@@ -35,7 +31,7 @@ export default function MypageDownload({user}) {
                     <div className="mypageDownload-container-info">
                         <div className="mypageDownload-container-course">{note.title}</div>
                         <div className="mypageDownload-container-details">
-                            {note.uploaderName} pf<br />
+                            {note.uploaderName}<br/>
                             {note.uploadDate}
                         </div>
                     </div>

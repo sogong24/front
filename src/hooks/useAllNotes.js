@@ -10,7 +10,9 @@ function useAllNotes() {
             try {
                 // 모든 노트를 가져오는 API 요청
                 const response = await api.get(`/api/notes`);
-                setNotes(response.data);
+                const data = await response.data;
+                console.log(data);
+                setNotes(data);
             } catch (error) {
                 setError("노트 데이터를 가져오는 데 실패했습니다.");
                 console.error("노트 데이터 오류:", error.response);
