@@ -8,6 +8,8 @@ export default function MypageProfile({ user }) {
     const [likesCount, setLikesCount] = useState(0);
     const [dislikesCount, setDislikesCount] = useState(0);
 
+    console.log(user);
+
     useEffect(() => {
         if (user && notes.length > 0) {
             // 유저가 업로드한 노트를 필터링

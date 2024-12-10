@@ -1,29 +1,41 @@
 // CourseBoradPage에서 강의 선택했을 때 다운받을 pdf를 보여주는 페이지
 // searchFrame X 
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useNoteDetail from '../hooks/useNoteDetail';
 import useNoteDownload from '../hooks/useNoteDownload';
+import useCourseDetail from "../hooks/useCourseDetail";
+import useUser from "../hooks/useUser";
 
 function NoteDownloadPage() {
     const { noteId } = useParams();
     const { noteInfo, error: detailError, loading: detailLoading, getNoteDetail } = useNoteDetail();
     const { downloadNote, error: downloadError, loading: downloadLoading } = useNoteDownload();
+    const { courseInfo, error: courseError, loading: courseLoading, getCourseDetail } = useCourseDetail();
+    const { userInfo, error: userError, loading: userLoading, getUserDetail } = useUser();
 
     useEffect(() => {
         getNoteDetail(noteId);
     }, [noteId]);
 
+    useEffect(() => {
+        getCourseDetail(noteInfo.courseID);
+    }, [noteInfo.courseID]);
+
+    useEffect(() => {
+        getUserDetail();
+    }, []);
+
     const handleDownload = async () => {
         await downloadNote(noteId);
     };
 
-    if (detailLoading) {
+    if (detailLoading || courseLoading || userLoading) {
         return <div className="text-center mt-8">로딩 중...</div>;
     }
 
-    if (detailError) {
+    if (detailError || courseError || userError) {
         return <div className="text-red-500 text-center mt-8">{detailError}</div>;
     }
 
@@ -36,19 +48,19 @@ function NoteDownloadPage() {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                         <div>
                             <p className="text-gray-600">강의명</p>
-                            <p className="font-semibold">{noteInfo.courseTitle}</p>
+                            <p className="font-semibold">{courseInfo.title}</p>
                         </div>
                         <div>
                             <p className="text-gray-600">교수명</p>
-                            <p className="font-semibold">{noteInfo.professorName}</p>
+                            <p className="font-semibold">{courseInfo.professorName}</p>
                         </div>
                         <div>
                             <p className="text-gray-600">학년/학기</p>
-                            <p className="font-semibold">{noteInfo.grade}학년 {noteInfo.semester}학기</p>
+                            <p className="font-semibold">{courseInfo.grade}학년 {courseInfo.semester}학기</p>
                         </div>
                         <div>
                             <p className="text-gray-600">작성자</p>
-                            <p className="font-semibold">{noteInfo.authorName}</p>
+                            <p className="font-semibold">{userInfo.username}</p>
                         </div>
                     </div>
 
