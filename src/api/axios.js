@@ -2,24 +2,36 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000',
-    withCredentials: true,
-    headers: {
-        'Content-Type': 'application/json'
-    }
+    withCredentials: true
 });
 
-// 요청 인터셉터 - 설정 추가하거나 수정할 수 있는 기능 ; 지금 이게 필요한 지는 잘 모르겠다.
-// 인증 토큰 추가
-// localStorage에 저장을 시키는 게 맞는지 체크 -> 쿠키 사용하거나 메모리에만 저장 고려
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
-        if(token) {
+        if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        console.log('API Request:', {
+            url: config.url,
+            method: config.method,
+            headers: config.headers,
+            baseURL: config.baseURL
+        });
         return config;
-    }, 
+    },
     (error) => {
+        return Promise.reject(error);
+    }
+);
+
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        console.error('API Error:', {
+            status: error.response?.status,
+            data: error.response?.data,
+            config: error.config
+        });
         return Promise.reject(error);
     }
 );

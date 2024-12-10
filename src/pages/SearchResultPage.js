@@ -17,16 +17,6 @@ function SearchResultPage() {
         isSearching 
     } = useSearch(searchParams);
 
-    //  // 로딩 상태 확인을 위한 useEffect 추가
-    //  useEffect(() => {
-    //     console.log('현재 검색 상태:', {
-    //         isSearching,
-    //         resultsLength: searchResults?.length,
-    //         searchParams
-    //     });
-    // }, [isSearching, searchResults, searchParams]);
-
-
     return (
         <div className="min-h-screen bg-gray-50">
             <div className="container mx-auto px-4 py-8">
@@ -49,14 +39,10 @@ function SearchResultPage() {
                     </div>
                     
                     {/* 검색 결과 컴포넌트 */}
-                    {isSearching ? (
-                        <div> 검색 중 입니다. 잠시만 기다려주세요.</div>
-                    ) : (
-                        <SearchResults
+                    <SearchResults
                         results={searchResults}
-                            error={error}
-                        />
-                    )}
+                        error={error}
+                    />
                 </div>
             </div>
         </div>

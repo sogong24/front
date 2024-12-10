@@ -6,18 +6,12 @@ import MypageDownload from "./MypageDownload";
 import MypageWrite from "./MypageWrite";
 
 function Mypage() {
-    const { user, error } = useUser(); // 사용자 데이터 가져오기
+    const { user, error, loading } = useUser(); // 사용자 데이터 가져오기
     const [currentComponent, setCurrentComponent] = useState("profile");
 
-    // 에러 처리
-    if (error) {
-        return <p>{error}</p>;
-    }
-
-    // 로딩 상태 처리
-    if (!user) {
-        return <p>유저 정보를 불러오는 중...</p>;
-    }
+    if (loading) return <div>로딩 중...</div>;
+    if (error) return <div>에러: {error}</div>;
+    if (!user) return <div>사용자 정보가 없습니다.</div>;
 
     // 하위 컴포넌트를 렌더링하는 함수
     const renderComponent = () => {
