@@ -1,7 +1,7 @@
 // selected course at SearchResultPage -> Able to Download PDF List
 // layout만 우선 구현하고 기능은 나중에 hooks에다가 구현
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SearchFrame from '../components/common/SearchFrame';
 import useNotes from '../hooks/useNotes';
@@ -11,7 +11,7 @@ function CourseBoardPage() {
 
     const navigate = useNavigate();
     const { courseId } = useParams();
-    const { notes, error } = useNotes(courseId);
+    const { notes, error, getNotes } = useNotes();
     const { downloadNote, error: downloadError, loading: downloadLoading } = useNoteDownload();
 
     const handleDownload = async (noteId, e) => {
@@ -21,6 +21,10 @@ function CourseBoardPage() {
             alert(downloadError);
         }
     };
+
+    useEffect(() => {
+        getNotes(courseId);
+    }, [courseId]);
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -49,13 +53,13 @@ function CourseBoardPage() {
                                 >
                                     <div 
                                         className="flex-1 cursor-pointer" 
-                                        onClick={() => navigate(`/notedownload/${note.id}`)}
+                                        onClick={() => navigate(`/notedownload/${note.id}`, {state: {noteId: note.id}})}
                                     >
                                         <h3 className="text-lg font-semibold">{note.title}</h3>
                                         <p className="text-gray-600">{note.description}</p>
                                         <div className="mt-2 text-sm text-gray-500">
-                                            <span className="ml-2">Like: {note.likesCount}</span>
-                                            <span className="ml-2">DisLike: {note.dislikesCount}</span>
+                                            <span className="ml-2">Like: {note.likeCount}</span>
+                                            <span className="ml-2">DisLike: {note.dislikeCount}</span>
                                         </div>
                                     </div>
                                     <div className="ml-4">

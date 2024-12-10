@@ -1,6 +1,5 @@
 import { IoIosClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import base64 from "base-64";
 import api from "../../api/axios";
 import useUploadPoint from "../../hooks/useUploadPoint";
@@ -92,7 +91,7 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
         // 게시글 업로드 성공 시 포인트 추가
         const pointResult = await addUploadPoint();
   
-        if (pointResult && pointResult.success) {
+        if (pointResult?.success) {
           alert(`게시물이 등록되었습니다.\n글 작성 보상으로 5포인트가 지급되었습니다.`);
           navigate("/home");
         } else {

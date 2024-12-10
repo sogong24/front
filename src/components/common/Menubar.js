@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { FaHome } from 'react-icons/fa';
-import { CgAttachment } from 'react-icons/cg';
-import { CgUser } from 'react-icons/cg';
+import { CgAttachment, CgUser } from 'react-icons/cg';
 
 
 function Menubar() {
