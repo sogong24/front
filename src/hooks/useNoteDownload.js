@@ -5,7 +5,7 @@ function useNoteDownload() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const downloadNote = async (noteID) => {
+    const downloadNote = async (noteID)=> {
         try {
             setError(null);
             setLoading(true);

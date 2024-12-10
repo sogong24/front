@@ -40,10 +40,12 @@ export default function MypageProfile({ user }) {
             <div className="mypageprofile-container">
                 <div className="mypageprofile-label">ID (이메일)</div>
                 <div className="mypageprofile-box">{user.email}</div>
+
             </div>
             <div className="mypageprofile-container">
                 <div className="mypageprofile-label">포인트 수</div>
                 <div className="mypageprofile-box">{user.point}</div>
+
             </div>
             <div className="mypageprofile-container">
                 <div className="mypageprofile-label">평판 관리</div>
@@ -55,7 +57,7 @@ export default function MypageProfile({ user }) {
                     </div>
                     <div className="reputation-box">
                         <BiDislike className="icon" />
-                        <span>{user.discount}</span>
+                        <span>{user.dislikeCount}</span>
                         <div className="reputation-label">싫어요 수</div>
                     </div>
                 </div>
