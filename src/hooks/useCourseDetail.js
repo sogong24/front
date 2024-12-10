@@ -25,6 +25,8 @@ function useCourseDetail() {
             });
 
             console.log('응답 데이터:', response.data);
+            console.log(courseInfo);
+
             const data = await response.data;
             setCourseInfo(data);
             return response.data;

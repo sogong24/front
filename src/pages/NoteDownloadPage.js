@@ -13,19 +13,17 @@ function NoteDownloadPage() {
     const { noteInfo, error: detailError, loading: detailLoading, getNoteDetail } = useNoteDetail();
     const { downloadNote, error: downloadError, loading: downloadLoading } = useNoteDownload();
     const { courseInfo, error: courseError, loading: courseLoading, getCourseDetail } = useCourseDetail();
-    const { userInfo, error: userError, loading: userLoading, getUserDetail } = useUser();
+    const { userInfo, error: userError, loading: userLoading } = useUser();
 
     useEffect(() => {
         getNoteDetail(noteId);
     }, [noteId]);
 
     useEffect(() => {
-        getCourseDetail(noteInfo.courseID);
-    }, [noteInfo.courseID]);
-
-    useEffect(() => {
-        getUserDetail();
-    }, []);
+        if (noteInfo && noteInfo.courseId) {
+            getCourseDetail(noteInfo.courseId);
+        }
+    }, [noteInfo]);
 
     const handleDownload = async () => {
         await downloadNote(noteId);
@@ -48,19 +46,19 @@ function NoteDownloadPage() {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                         <div>
                             <p className="text-gray-600">강의명</p>
-                            <p className="font-semibold">{courseInfo.title}</p>
+                            <p className="font-semibold">{noteInfo.title}</p>
                         </div>
                         <div>
                             <p className="text-gray-600">교수명</p>
-                            <p className="font-semibold">{courseInfo.professorName}</p>
+                            <p className="font-semibold">{noteInfo.professorName}</p>
                         </div>
                         <div>
                             <p className="text-gray-600">학년/학기</p>
-                            <p className="font-semibold">{courseInfo.grade}학년 {courseInfo.semester}학기</p>
+                            <p className="font-semibold">{noteInfo.grade}학년 {noteInfo.semester}학기</p>
                         </div>
                         <div>
                             <p className="text-gray-600">작성자</p>
-                            <p className="font-semibold">{userInfo.username}</p>
+                            <p className="font-semibold">{noteInfo.username}</p>
                         </div>
                     </div>
 
