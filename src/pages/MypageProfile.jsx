@@ -8,8 +8,6 @@ export default function MypageProfile({ user }) {
     const [likesCount, setLikesCount] = useState(0);
     const [dislikesCount, setDislikesCount] = useState(0);
 
-    console.log(user);
-
     useEffect(() => {
         if (user && notes.length > 0) {
             // 유저가 업로드한 노트를 필터링
@@ -42,18 +40,24 @@ export default function MypageProfile({ user }) {
             <div className="mypageprofile-container">
                 <div className="mypageprofile-label">ID (이메일)</div>
                 <div className="mypageprofile-box">{user.email}</div>
+
+            </div>
+            <div className="mypageprofile-container">
+                <div className="mypageprofile-label">포인트 수</div>
+                <div className="mypageprofile-box">{user.point}</div>
+
             </div>
             <div className="mypageprofile-container">
                 <div className="mypageprofile-label">평판 관리</div>
                 <div className="mypageprofile-reputation">
                     <div className="reputation-box">
                         <BiLike className="icon" />
-                        <span>{likesCount}</span>
+                        <span>{user.likecount}</span>
                         <div className="reputation-label">좋아요 수</div>
                     </div>
                     <div className="reputation-box">
                         <BiDislike className="icon" />
-                        <span>{dislikesCount}</span>
+                        <span>{user.dislikeCount}</span>
                         <div className="reputation-label">싫어요 수</div>
                     </div>
                 </div>
