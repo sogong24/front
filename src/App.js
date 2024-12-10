@@ -29,7 +29,7 @@ function App() {
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/search" element={<SearchResultPage />} />
                 <Route path="/courseboard/:courseId" element={<CourseBoardPage />} />
-                <Route path="/notedownload/:noteId" element={<NoteDownloadPage />} />
+                <Route path="/notedownload/:noteID" element={<NoteDownloadPage />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/post/create" element={<PostCreatePage />} />
               </Routes>
