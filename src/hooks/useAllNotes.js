@@ -9,7 +9,7 @@ function useAllNotes() {
         const fetchNotes = async () => {
             try {
                 // 모든 노트를 가져오는 API 요청
-                const response = await api.get(`/api/allnotes`);
+                const response = await api.get(`/api/notes`);
                 setNotes(response.data);
             } catch (error) {
                 setError("노트 데이터를 가져오는 데 실패했습니다.");
