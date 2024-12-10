@@ -1,6 +1,5 @@
 import { IoIosClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import base64 from "base-64";
 import api from "../../api/axios";
 import useUploadPoint from "../../hooks/useUploadPoint";
 
@@ -16,17 +15,7 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
     const description = courseInfo.info;
     //게시글 업로드 정보 추출
 
-    const token = localStorage.getItem("token");
-    let payload = token.substring(
-      token.indexOf(".") + 1,
-      token.lastIndexOf(".")
-    );
-    let decodingInfo = base64.decode(payload);
-    let decodingInfoJson = JSON.parse(decodingInfo);
-    //jwt 토큰 디코딩
-
-    const response = await api.get("http://localhost:3000/api/courses", {
-      headers: { Authorization: `Bearer ${token}` },
+    const response = await api.get("/api/courses", {
       params: {
         grade: userGrade,
         semester: semester,
@@ -51,7 +40,6 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
     // courseID 추출
     try {
       const formData = new FormData();
-      formData.append("uploaderID", decodingInfoJson.userId);
       formData.append("courseID", courseID);
       formData.append("title", title);
       formData.append("description", description);
@@ -82,7 +70,6 @@ function PostCreateTopbar({ courseInfo, fileInfo }) {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }

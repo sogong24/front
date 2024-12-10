@@ -9,21 +9,10 @@ function useNoteDownload() {
         try {
             setError(null);
             setLoading(true);
-            const token = localStorage.getItem('token');
-            
-            if (!token) {
-                setError('로그인이 필요합니다.');
-                return false;
-            }
-
-            // JWT 토큰에서 사용자 ID 추출
-            const payload = token.split('.')[1];
-            const decodedPayload = JSON.parse(atob(payload));
-            const userID = decodedPayload.userId;
 
             // 1. 먼저 노트 구매 시도
             try {
-                await api.post(`/api/notes/${noteID}/purchase/${userID}`);
+                await api.post(`/api/notes/${noteID}/purchase`);
             } catch (purchaseError) {
                 if (purchaseError.response?.status === 403) {
                     setError('포인트가 부족합니다.');
@@ -33,7 +22,7 @@ function useNoteDownload() {
             }
 
             // 2. 구매 성공 후 다운로드 시도
-            const response = await api.get(`/api/notes/${noteID}/download/${userID}`, {
+            const response = await api.get(`/api/notes/${noteID}/download`, {
                 responseType: 'blob'
             });
 
