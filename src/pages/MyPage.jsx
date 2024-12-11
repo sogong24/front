@@ -41,13 +41,13 @@ function Mypage() {
         <div className="mypage-css">
             <div className="profile"></div>
             <div className="menu">
-                <div className="menu-button" onClick={() => setCurrentComponent("profile")}>
+                <div className="menu-button ${currentComponent === 'profile' ? 'active' : ''}" onClick={() => setCurrentComponent("profile")}>
                     프로필
                 </div>
-                <div className="menu-button" onClick={() => setCurrentComponent("download")}>
+                <div className="menu-button ${currentComponent === 'download' ? 'active' : ''}" onClick={() => setCurrentComponent("download")}>
                     다운받은 목록
                 </div>
-                <div className="menu-button" onClick={() => setCurrentComponent("write")}>
+                <div className="menu-button ${currentComponent === 'write' ? 'active' : ''}" onClick={() => setCurrentComponent("write")}>
                     작성한 목록
                 </div>
             </div>
